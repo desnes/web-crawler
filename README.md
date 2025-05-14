@@ -1,11 +1,48 @@
 # Hacker News Clone
 
-A full-stack clone of Hacker News with modern React/TypeScript frontend and Node.js/Express backend, featuring real-time story fetching, filtering, and responsive design.
+A full-stack clone of Hacker News with modern React/TypeScript frontend and Node.js/Express backend, featuring real-time story scraping, filtering, and responsive design.
 
 **Frontend**: React + TypeScript + Vite + Tailwind CSS  
-**Backend**: Node.js + Express + Axios  
-**Testing**: Vitest (frontend) + Jest (backend)  
-**API**: Hacker News Firebase API
+**Backend**: Node.js + Express + Cheerio (Web Scraper)  
+**API Base URL**: `https://web-crawler-7peg.onrender.com/api`  
+**Live Demo**: [Backend Deployment URL](https://web-crawler-7peg.onrender.com/api/news)
+
+---
+
+## API Endpoints
+
+### 1. Get All News Stories
+`GET /news`  
+Fetches the top 30 stories from Hacker News  
+**Response**:
+```json
+[
+  {
+    "number": 1,
+    "title": "Show HN: We built an AI-powered code reviewer",
+    "points": 256,
+    "comments": 83,
+    "url": "https://example.com/ai-code-reviewer"
+  }
+]
+```
+### 2. Filter Long Titles (5+ words)
+`GET /news/filter/long-titles`  
+Returns stories with titles containing 5+ words, sorted by most comments
+**Logic**:
+```javascript
+stories.filter(entry => entry.title.split(' ').length > 5)
+      .sort((a,b) => b.comments - a.comments)
+```
+### 3. Filter Short Titles (≤5 words)
+`GET /news/filter/short-titles`  
+Returns stories with titles containing 5+ words, sorted by most comments
+**Logic**:
+```javascript
+stories.filter(entry => entry.title.split(' ').length <= 5)
+      .sort((a,b) => b.points - a.points)
+```
+
 
 ---
 
@@ -35,17 +72,13 @@ A full-stack clone of Hacker News with modern React/TypeScript frontend and Node
 ## Features
 
 ### Backend
-✅ HN API Proxy & Caching  
-✅ Rate Limiting (100 req/hour)  
 ✅ Request Validation  
 ✅ In-Memory Cache (1 minute TTL)  
 
 ### Frontend
 📰 Paginated Story Listings  
 🔍 Title Length Filtering (All/Long/Short)  
-📱 Mobile-First Responsive Design  
 ⚡ Optimized Loading (Skeleton UI)  
-🧪 100% Test Coverage  
 
 ---
 
@@ -53,11 +86,11 @@ A full-stack clone of Hacker News with modern React/TypeScript frontend and Node
 
 ```mermaid
 sequenceDiagram
-    Frontend->>+Backend: GET /api/top-stories
-    Backend->>+HN API: GET /topstories.json
-    HN API-->>-Backend: Story IDs
-    Backend->>+HN API: GET /item/{id}.json
-    HN API-->>-Backend: Full Story Data
+    Frontend->>+Backend: GET /api/news
+    Backend->>+HackerNews: GET /news.json
+    HackerNews-->>-Backend: news IDs
+    Backend->>+HackerNews: GET /item/{id}.json
+    HackerNews-->>-Backend: Full News Data
     Backend-->>-Frontend: Processed Data    
 ```
 
