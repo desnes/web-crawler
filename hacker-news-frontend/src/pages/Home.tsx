@@ -1,3 +1,11 @@
+interface HNNews {
+  number: number;
+  title: string;
+  points: number;
+  comments: number;
+  url?: string;
+}
+
 import { useState, useEffect } from 'react'
 import { fetchNews } from '../services/api'
 import { NewsCard } from '../components/NewsCard'

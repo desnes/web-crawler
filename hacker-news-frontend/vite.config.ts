@@ -1,10 +1,7 @@
+// vite.config.ts
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 
 export default defineConfig({
   plugins: [react()],
-  test: { // ✅ Move test config to vitest.config.ts
-    globals: true,
-    environment: 'jsdom',
-  }
 })

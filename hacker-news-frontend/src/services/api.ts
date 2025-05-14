@@ -1,3 +1,10 @@
+interface HNNews {
+  number: number;
+  title: string;
+  points: number;
+  comments: number;
+  url?: string;
+}
 const API_BASE = import.meta.env.VITE_API_URL || 'http://localhost:3000/api';
 
 export const fetchNews = async (endpoint: string): Promise<HNNews[]> => {
