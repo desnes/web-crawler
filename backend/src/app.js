@@ -13,6 +13,8 @@ app.use(cors({
   ],
   methods: ['GET', 'POST', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization'],
+  credentials: true // Si usas autenticación
+
 }));
 app.use(morgan('dev'));
 app.use(express.json());
