@@ -4,6 +4,7 @@ import { NewsCard } from '../components/NewsCard'
 import { Filters } from '../components/Filters'
 import { SkeletonLoader } from '../components/SkeletonLoader'
 
+
 export const Home = () => {
   const [news, setNews] = useState<HNNews[]>([])
   const [loading, setLoading] = useState(true)

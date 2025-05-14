@@ -4,8 +4,9 @@
     { "path": "./tsconfig.app.json" },
     { "path": "./tsconfig.node.json" }
   ],
-    "compilerOptions": {
-    "module": "ESNext",
-    "moduleResolution": "Node"
+
+  "compilerOptions": {
+    "verbatimModuleSyntax": false, // ✅ Disable if causing issues
+    "types": ["vitest/globals"] // Add for test types
   }
 }
